@@ -64,6 +64,7 @@ let zlabiamdk_actions_navtocustomers_detail_action = __webpack_require__(/*! ./z
 let zlabiamdk_actions_navtocustomers_edit_action = __webpack_require__(/*! ./zlabiamdk/Actions/NavToCustomers_Edit.action */ "./build.definitions/zlabiamdk/Actions/NavToCustomers_Edit.action")
 let zlabiamdk_actions_navtocustomers_list_action = __webpack_require__(/*! ./zlabiamdk/Actions/NavToCustomers_List.action */ "./build.definitions/zlabiamdk/Actions/NavToCustomers_List.action")
 let zlabiamdk_actions_updatecustomerentityfailuremessage_action = __webpack_require__(/*! ./zlabiamdk/Actions/UpdateCustomerEntityFailureMessage.action */ "./build.definitions/zlabiamdk/Actions/UpdateCustomerEntityFailureMessage.action")
+let zlabiamdk_actions_validationfailure_action = __webpack_require__(/*! ./zlabiamdk/Actions/ValidationFailure.action */ "./build.definitions/zlabiamdk/Actions/ValidationFailure.action")
 let zlabiamdk_globals_application_appdefinition_version_global = __webpack_require__(/*! ./zlabiamdk/Globals/Application/AppDefinition_Version.global */ "./build.definitions/zlabiamdk/Globals/Application/AppDefinition_Version.global")
 let zlabiamdk_globals_application_applicationname_global = __webpack_require__(/*! ./zlabiamdk/Globals/Application/ApplicationName.global */ "./build.definitions/zlabiamdk/Globals/Application/ApplicationName.global")
 let zlabiamdk_globals_application_supportemail_global = __webpack_require__(/*! ./zlabiamdk/Globals/Application/SupportEmail.global */ "./build.definitions/zlabiamdk/Globals/Application/SupportEmail.global")
@@ -89,6 +90,7 @@ let zlabiamdk_rules_application_getclientsupportversions_js = __webpack_require_
 let zlabiamdk_rules_application_getclientversion_js = __webpack_require__(/*! ./zlabiamdk/Rules/Application/GetClientVersion.js */ "./build.definitions/zlabiamdk/Rules/Application/GetClientVersion.js")
 let zlabiamdk_rules_application_onwillupdate_js = __webpack_require__(/*! ./zlabiamdk/Rules/Application/OnWillUpdate.js */ "./build.definitions/zlabiamdk/Rules/Application/OnWillUpdate.js")
 let zlabiamdk_rules_application_resetappsettingsandlogout_js = __webpack_require__(/*! ./zlabiamdk/Rules/Application/ResetAppSettingsAndLogout.js */ "./build.definitions/zlabiamdk/Rules/Application/ResetAppSettingsAndLogout.js")
+let zlabiamdk_rules_emailvalidation_js = __webpack_require__(/*! ./zlabiamdk/Rules/EmailValidation.js */ "./build.definitions/zlabiamdk/Rules/EmailValidation.js")
 let zlabiamdk_rules_logging_loglevels_js = __webpack_require__(/*! ./zlabiamdk/Rules/Logging/LogLevels.js */ "./build.definitions/zlabiamdk/Rules/Logging/LogLevels.js")
 let zlabiamdk_rules_logging_settracecategories_js = __webpack_require__(/*! ./zlabiamdk/Rules/Logging/SetTraceCategories.js */ "./build.definitions/zlabiamdk/Rules/Logging/SetTraceCategories.js")
 let zlabiamdk_rules_logging_setuserloglevel_js = __webpack_require__(/*! ./zlabiamdk/Rules/Logging/SetUserLogLevel.js */ "./build.definitions/zlabiamdk/Rules/Logging/SetUserLogLevel.js")
@@ -152,6 +154,7 @@ module.exports = {
 	zlabiamdk_actions_navtocustomers_edit_action : zlabiamdk_actions_navtocustomers_edit_action,
 	zlabiamdk_actions_navtocustomers_list_action : zlabiamdk_actions_navtocustomers_list_action,
 	zlabiamdk_actions_updatecustomerentityfailuremessage_action : zlabiamdk_actions_updatecustomerentityfailuremessage_action,
+	zlabiamdk_actions_validationfailure_action : zlabiamdk_actions_validationfailure_action,
 	zlabiamdk_globals_application_appdefinition_version_global : zlabiamdk_globals_application_appdefinition_version_global,
 	zlabiamdk_globals_application_applicationname_global : zlabiamdk_globals_application_applicationname_global,
 	zlabiamdk_globals_application_supportemail_global : zlabiamdk_globals_application_supportemail_global,
@@ -177,6 +180,7 @@ module.exports = {
 	zlabiamdk_rules_application_getclientversion_js : zlabiamdk_rules_application_getclientversion_js,
 	zlabiamdk_rules_application_onwillupdate_js : zlabiamdk_rules_application_onwillupdate_js,
 	zlabiamdk_rules_application_resetappsettingsandlogout_js : zlabiamdk_rules_application_resetappsettingsandlogout_js,
+	zlabiamdk_rules_emailvalidation_js : zlabiamdk_rules_emailvalidation_js,
 	zlabiamdk_rules_logging_loglevels_js : zlabiamdk_rules_logging_loglevels_js,
 	zlabiamdk_rules_logging_settracecategories_js : zlabiamdk_rules_logging_settracecategories_js,
 	zlabiamdk_rules_logging_setuserloglevel_js : zlabiamdk_rules_logging_setuserloglevel_js,
@@ -447,6 +451,34 @@ function ResetAppSettingsAndLogout(clientAPI) {
   } finally {
     // Logout 
     return clientAPI.getPageProxy().executeAction('/zlabiamdk/Actions/Application/Reset.action');
+  }
+}
+
+/***/ }),
+
+/***/ "./build.definitions/zlabiamdk/Rules/EmailValidation.js":
+/*!**************************************************************!*\
+  !*** ./build.definitions/zlabiamdk/Rules/EmailValidation.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ EmailValidation)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} context
+ */
+function EmailValidation(context) {
+  //The following evaluateTargetPath will retrieve the current value of the email control
+  if (context.evaluateTargetPath('#Control:FCEmail/#Value').indexOf('@') === -1) {
+    //If email value does not contain @ display a validation failure message to the end-user
+    context.executeAction('/zlabiamdk/Actions/ValidationFailure.action');
+  } else {
+    //If @ is present in the email value, return true to indicate validation is successful
+    return true;
   }
 }
 
@@ -1305,7 +1337,7 @@ module.exports = {"_Type":"Action.Type.ClosePage"}
   \***************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.ODataService.UpdateEntity","ActionResult":{"_Name":"Customers_UpdateEntity"},"OnFailure":"/zlabiamdk/Actions/UpdateCustomerEntityFailureMessage.action","OnSuccess":"/zlabiamdk/Actions/CloseModalPage_Complete.action","Target":{"Service":"/zlabiamdk/Services/mymbt.service","EntitySet":"Customers","ReadLink":"{@odata.readLink}"},"Properties":{"EmailAddress":"#Control:FCEmail/#Value","FirstName":"#Control:FCFirstName/#Value","LastName":"#Control:FCLastName/#Value","PhoneNumber":"#Control:FCPhone/#Value"}}
+module.exports = {"_Type":"Action.Type.ODataService.UpdateEntity","ActionResult":{"_Name":"Customers_UpdateEntity"},"OnFailure":"/zlabiamdk/Actions/UpdateCustomerEntityFailureMessage.action","OnSuccess":"/zlabiamdk/Actions/CloseModalPage_Complete.action","ValidationRule":"/zlabiamdk/Rules/EmailValidation.js","Target":{"Service":"/zlabiamdk/Services/mymbt.service","EntitySet":"Customers","ReadLink":"{@odata.readLink}"},"Properties":{"EmailAddress":"#Control:FCEmail/#Value","FirstName":"#Control:FCFirstName/#Value","LastName":"#Control:FCLastName/#Value","PhoneNumber":"#Control:FCPhone/#Value"}}
 
 /***/ }),
 
@@ -1456,6 +1488,16 @@ module.exports = {"_Type":"Action.Type.Navigation","ActionResult":{"_Name":"NavT
 /***/ ((module) => {
 
 module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"UpdateCustomerEntityFailureMessage"},"Message":"Failed to Save Customer Updates - {#ActionResults:Customers_UpdateEntity/error}","Title":"Update Customer","OKCaption":"OK"}
+
+/***/ }),
+
+/***/ "./build.definitions/zlabiamdk/Actions/ValidationFailure.action":
+/*!**********************************************************************!*\
+  !*** ./build.definitions/zlabiamdk/Actions/ValidationFailure.action ***!
+  \**********************************************************************/
+/***/ ((module) => {
+
+module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"ValidationFailure"},"Message":"Email address is not in the correct format recipient @ domain . domaintype","Title":"Validate Email","OKCaption":"OK"}
 
 /***/ }),
 

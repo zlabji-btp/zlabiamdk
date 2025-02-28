@@ -5,6 +5,7 @@
 	},
 	"OnFailure": "/zlabiamdk/Actions/UpdateCustomerEntityFailureMessage.action",
 	"OnSuccess": "/zlabiamdk/Actions/CloseModalPage_Complete.action",
+	"ValidationRule": "/zlabiamdk/Rules/EmailValidation.js",
 	"Target": {
 		"Service": "/zlabiamdk/Services/mymbt.service",
 		"EntitySet": "Customers",
