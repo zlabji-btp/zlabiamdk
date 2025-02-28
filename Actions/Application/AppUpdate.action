@@ -1,0 +1,8 @@
+{
+    "_Type": "Action.Type.ApplicationUpdate",
+    "ActionResult": {
+        "_Name": "AppUpdate"
+    },
+    "OnFailure": "/zlabiamdk/Rules/Application/AppUpdateFailure.js",
+    "OnSuccess": "/zlabiamdk/Rules/Application/AppUpdateSuccess.js"
+}

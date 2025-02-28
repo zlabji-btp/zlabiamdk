@@ -1,0 +1,10 @@
+{
+    "_Type": "Action.Type.OfflineOData.Close",
+    "Service": "/zlabiamdk/Services/mymbt.service",
+    "Force": true,
+    "ActionResult": {
+        "_Name": "close"
+    },
+    "OnSuccess": "/zlabiamdk/Actions/mymbt/Service/CloseOfflineSuccessMessage.action",
+    "OnFailure": "/zlabiamdk/Actions/mymbt/Service/CloseOfflineFailureMessage.action"
+}

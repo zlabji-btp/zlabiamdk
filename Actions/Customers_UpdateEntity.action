@@ -1,0 +1,19 @@
+{
+	"_Type": "Action.Type.ODataService.UpdateEntity",
+	"ActionResult": {
+		"_Name": "Customers_UpdateEntity"
+	},
+	"OnFailure": "/zlabiamdk/Actions/UpdateCustomerEntityFailureMessage.action",
+	"OnSuccess": "/zlabiamdk/Actions/CloseModalPage_Complete.action",
+	"Target": {
+		"Service": "/zlabiamdk/Services/mymbt.service",
+		"EntitySet": "Customers",
+		"ReadLink": "{@odata.readLink}"
+	},
+	"Properties": {
+		"EmailAddress": "#Control:FCEmail/#Value",
+		"FirstName": "#Control:FCFirstName/#Value",
+		"LastName": "#Control:FCLastName/#Value",
+		"PhoneNumber": "#Control:FCPhone/#Value"
+	}
+}

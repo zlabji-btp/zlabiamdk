@@ -1,0 +1,9 @@
+{
+    "Service": "/zlabiamdk/Services/mymbt.service",
+    "_Type": "Action.Type.OfflineOData.Upload",
+    "ActionResult": {
+        "_Name": "sync"
+    },
+    "OnSuccess": "/zlabiamdk/Actions/mymbt/Service/DownloadStartedMessage.action",
+    "OnFailure": "/zlabiamdk/Actions/mymbt/Service/SyncFailureMessage.action"
+}

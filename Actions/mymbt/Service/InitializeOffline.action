@@ -1,0 +1,14 @@
+{
+    "Service": "/zlabiamdk/Services/mymbt.service",
+    "DefiningRequests": [{
+        "Name": "Customers",
+        "Query": "Customers"
+    }],
+    "_Type": "Action.Type.ODataService.Initialize",
+    "ShowActivityIndicator": true,
+    "ActivityIndicatorText": "Downloading...",
+    "ActionResult": {
+        "_Name": "init"
+    },
+    "OnFailure": "/zlabiamdk/Actions/mymbt/Service/InitializeOfflineFailureMessage.action"
+}
